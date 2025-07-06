@@ -6,7 +6,6 @@ import { useContext} from 'react';
 import { EdgeContext } from '../../utils/context';
 import cooking from '../../assets/cooking.png';
 import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 import "../../styles/Sidebar.css";
 
 const StyledSidebar = styled.div`
@@ -84,7 +83,6 @@ const StyledLink = styled(Link)`
 `;
 function Sidebar(){
     const {leftEdge, toggleLeftEdge} = useContext(EdgeContext);
-    const location = useLocation();
 
     return (
         <StyledSidebar style={{width: leftEdge}}>

@@ -40,7 +40,6 @@ const StyleIngredientWrapper = styled.ul`
 `;
 
 const StyleIntructionsWrapper = styled.ul`
-    // background-color: blue;
 `;
 const StyledP = styled.p`
     margin-top: 10px;
