@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Search from './pages/Search';
 import ViewRecipe from './pages/ViewRecipe';
 import PageNotFound from './pages/PageNotFound';
+import Contact from './pages/Contact';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,6 +25,7 @@ root.render(
             <Route path='/viewRecipe' element={<Home />}/>
             <Route path='/search/:MealName' element={<Search />}/>
             <Route path='/search' element={<Search />}/>
+            <Route path='/contact' element={<Contact />}/>
             <Route path='/viewRecipe/:mealId' element = {<ViewRecipe />}/>
             <Route path='*' element = {<PageNotFound />}/>
           </Routes>

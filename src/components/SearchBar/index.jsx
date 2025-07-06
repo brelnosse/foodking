@@ -7,7 +7,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 
 const SearchBarContainer = styled.div`
     background-color: ${colors.blue};
-    height: 40px;
+    height: 50px;
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;

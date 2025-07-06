@@ -104,6 +104,10 @@ function Sidebar(){
             <StyledSidebarBody>
                 <StyledLink to={"/"}><FontAwesomeIcon icon={fas.faBowlFood} style={{marginRight: 10}}/>{leftEdge === 200 && "Recipes"}</StyledLink>
                 <StyledLink to={"/search"}><FontAwesomeIcon icon={fas.faMagnifyingGlass} style={{marginRight: 10}}/>{leftEdge === 200 && "Search"}</StyledLink>
+                <StyledLink to={"/contact"}>
+                <FontAwesomeIcon icon={fas.faAddressCard} style={{ marginRight: 10 }} />
+                {leftEdge === 200 && "Contact"}
+                </StyledLink>            
             </StyledSidebarBody>
             <StyledSidebarFooter>
                 <img src={cooking} alt='' style={{width: "120%", objectFit: "cover"}}/>
