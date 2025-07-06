@@ -1,9 +1,9 @@
 import notFound from "../../assets/notFound.png";
 
-function Error({message, textColor, hasImage}){
+function Error({message, textColor, hasImage, picture}){
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: 'center'}}>
-            {hasImage && <img src={notFound} alt="Aucun plat trouvé" height={300}/>}
+            {hasImage && <img src={picture ? picture : notFound} alt="Aucun plat trouvé" height={300}/>}
             <span style={{margin: 20, fontSize: 20, color: textColor}}>{message}</span>
         </div>        
     );
@@ -12,6 +12,7 @@ function Error({message, textColor, hasImage}){
 Error.defaultProps = {
     message: "",
     textColor: "black",
-    hasImage: true
+    hasImage: true,
+    picture: false
 }
 export default Error;

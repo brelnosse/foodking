@@ -10,7 +10,7 @@ const StyledGlobalContainer = styled.div`
     overflow-x: hidden;
 `;
 function GlobalContainer({children}){
-    const {leftEdge, toggleLeftEdge} = useContext(EdgeContext);
+    const {leftEdge} = useContext(EdgeContext);
 
     return (
         <StyledGlobalContainer style={{paddingLeft: leftEdge}}>

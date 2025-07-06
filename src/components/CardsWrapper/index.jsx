@@ -19,7 +19,7 @@ function CardsWrapper({isLoading, error, meals}){
             {isLoading ? <Loader/> : (
                 error ? <Error message={"Erreur lors de la récupération des plats. Vérifier votre connexion internet."} hasImage={true} textColor={"red"}/> : 
                 (
-                    meals.length === 0 ? <Error message={"Aucun résultat trouvé"}/> :
+                    meals.length === 0 ? <Error message={"Aucun résultat trouvé"} hasImage={true}/> :
                     meals.map((meal) => <Card key={meal.idMeal} picture={meal.strMealThumb} title={meal.strMeal} id={meal.idMeal}/>)
                 )
             )}

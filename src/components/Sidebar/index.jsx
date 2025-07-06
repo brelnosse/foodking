@@ -4,6 +4,10 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import {colors} from '../../utils/style/colors';
 import { useContext} from 'react';
 import { EdgeContext } from '../../utils/context';
+import cooking from '../../assets/cooking.png';
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import "../../styles/Sidebar.css";
 
 const StyledSidebar = styled.div`
     position: fixed;
@@ -14,6 +18,7 @@ const StyledSidebar = styled.div`
     display: flex;
     flex-direction: column;
     transition: all 0.2s;
+    overflow: hidden;
 `;
 const StyledSidebarHeader = styled.div`
     display: flex;
@@ -44,8 +49,42 @@ const StyledButton = styled.button`
         box-shadow: 0px 0px 0px 5px rgba(0,0,0,0.05)
     }  
 `;
+
+const StyledSidebarFooter = styled.div`
+    background-color: transparent;
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+`;
+const StyledSidebarBody = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 10px;  
+    margin-top: 50px; 
+`;
+const StyledLink = styled(Link)`
+    display: inline-flex;
+    text-decoration: none;
+    padding: 10px;
+    align-items: center;
+    border-radius: 8px;
+    border: 2px solid ${colors.borderColor};
+    height: 40px;
+    fontSize: 15px;
+    width: 80%;
+    color: ${colors.borderColor};
+    background-color: white;
+    transition: all 0.3s;
+    &:hover{
+        background-color: ${colors.primary};
+        color: black;
+        border-color: ${colors.primary}
+    }
+`;
 function Sidebar(){
     const {leftEdge, toggleLeftEdge} = useContext(EdgeContext);
+    const location = useLocation();
 
     return (
         <StyledSidebar style={{width: leftEdge}}>
@@ -60,6 +99,17 @@ function Sidebar(){
                     <FontAwesomeIcon icon={fas.faBars}/>
                 </StyledButton>
             </StyledSidebarHeader>
+            <h1 style={{textAlign: 'center', margin: "20px 0px"}}>
+                <FontAwesomeIcon icon={fas.faKitchenSet} title="Logo de l'application"/> 
+                {leftEdge === 200 && " Miam"}
+            </h1>
+            <StyledSidebarBody>
+                <StyledLink to={"/"}><FontAwesomeIcon icon={fas.faBowlFood} style={{marginRight: 10}}/>{leftEdge === 200 && "Recipes"}</StyledLink>
+                <StyledLink to={"/search"}><FontAwesomeIcon icon={fas.faMagnifyingGlass} style={{marginRight: 10}}/>{leftEdge === 200 && "Search"}</StyledLink>
+            </StyledSidebarBody>
+            <StyledSidebarFooter>
+                <img src={cooking} alt='' style={{width: "120%", objectFit: "cover"}}/>
+            </StyledSidebarFooter>
         </StyledSidebar>
     );
 }

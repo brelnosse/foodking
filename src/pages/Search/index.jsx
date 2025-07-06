@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { useFetch } from "../../utils/hooks";
 import CardsWrapper from "../../components/CardsWrapper";
 import GobackBtn from "../../components/GobackBtn";
-import styled from "styled-components";
 
 function Search(){
     const {MealName} = useParams();
