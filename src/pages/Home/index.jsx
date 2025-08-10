@@ -3,7 +3,6 @@ import Navbar from "../../components/Navbarmenu";
 import { useFetch } from "../../utils/hooks";
 import { useState } from "react";
 import CardsWrapper from "../../components/CardsWrapper";
-
 function Home(){
     const [isActive, setIsActive] = useState({
         catId: 1,
@@ -14,7 +13,7 @@ function Home(){
     const meals = data.meals || [];
 
     return (
-    <div>
+    <div style={{paddingTop: 90}}>
         <Hero />
         <Navbar isActive={isActive} setIsActive={setIsActive} url = {url} setUrl = {setUrl}/>
         <CardsWrapper meals = {meals} error = {error} isLoading = {isLoading} />

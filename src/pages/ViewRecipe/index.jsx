@@ -2,21 +2,20 @@ import { useParams } from "react-router-dom";
 import { useFetch } from "../../utils/hooks";
 import Error from "../../components/Error";
 import MealCard from "../../components/MealCard";
-import {Loader} from '../../utils/style/Loader';
-import GobackBtn from "../../components/GobackBtn";
+import Loader from '../../utils/style/Loader';
 import nodishes from '../../assets/nodishes.png'
 import styled from 'styled-components';
+import { useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Container = styled.div`
 `;
 function ViewRecipe(){
-    const {mealId} = useParams();
-    const {data, error, isLoading} = useFetch('https://www.themealdb.com/api/json/v1/1/lookup.php?i='+ mealId);
+    const location = useLocation();
+    const {data, error, isLoading} = useFetch('https://www.themealdb.com/api/json/v1/1/lookup.php?i='+ location.state?.id);
     const meal = data.meals || [];
-    
     return (
-        <div>
-            <GobackBtn />
+        <div style={{paddingTop: 90}}>
             <Container>
                 {isLoading ?  <Loader /> :
                     error ? <Error message={"Erreur lors de la récupération des plats. Vérifier votre connexion internet."} hasImage={true} textColor="red"/> : (

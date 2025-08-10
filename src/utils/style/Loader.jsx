@@ -10,7 +10,7 @@ const spin = keyframes`
     }
 `;
 
-export const Loader = styled.div`
+export const LoaderSpinner = styled.div`
     height: 40px;
     width: 40px;
     border: 8px solid ${colors.primary};
@@ -18,3 +18,11 @@ export const Loader = styled.div`
     animation: ${spin} linear 1s infinite;
     border-radius: 50%;
 `;
+
+export default function Loader(){
+    return (
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <LoaderSpinner />
+        </div>
+    );
+}

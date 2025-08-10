@@ -2,7 +2,6 @@ import styled from "styled-components"
 import { colors } from "../../utils/style/colors"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { fas } from "@fortawesome/free-solid-svg-icons"
-import GobackBtn from "../../components/GobackBtn"
 
 const StyledContainer = styled.div`
     padding: 20px 30px;
@@ -105,8 +104,7 @@ const StyledDescription = styled.p`
 
 function Contact() {
   return (
-    <div>
-      <GobackBtn />
+    <div style={{paddingTop: 90}}>
       <StyledContainer>
         <StyledContactCard>
           <StyledTitle>Contact</StyledTitle>

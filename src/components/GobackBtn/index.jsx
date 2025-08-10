@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { colors } from "../../utils/style/colors";
 
 const SytledGobackbtnContainer = styled.div`
-    background-color:transparent;
+    background-color: blue;
     padding: 20px 30px;
 `;
 const StyledGobackBtn = styled(Link)`
@@ -14,8 +14,9 @@ const StyledGobackBtn = styled(Link)`
     padding: 16px 20px;
     border-radius: 50%;
     transition: all 0.3s;
+    margin-right: 10px;
     &:hover{
-    background-color: rgba(0,0,0,0.1);
+        background-color: rgba(0,0,0,0.1);
     }
 `;
 function GobackBtn(){
@@ -25,13 +26,9 @@ function GobackBtn(){
         navigate(-1);
     }
     return (
-        <SytledGobackbtnContainer>
-            <StyledGobackBtn 
-                onClick={handleGoback}
-            >
+            <StyledGobackBtn onClick={handleGoback}>
                 <FontAwesomeIcon icon={faArrowLeft}/>
             </StyledGobackBtn>
-        </SytledGobackbtnContainer>
     );
 }
 export default GobackBtn;

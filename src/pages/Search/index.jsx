@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useFetch } from "../../utils/hooks";
 import CardsWrapper from "../../components/CardsWrapper";
-import GobackBtn from "../../components/GobackBtn";
 
 function Search(){
     const {MealName} = useParams();
@@ -9,11 +8,10 @@ function Search(){
     const meals = data.meals || [];
 
     return (
-    <div className="resultsContainer">
-        <GobackBtn />
+    <div className="resultsContainer" style={{paddingTop: 90}}>
         <h3 style={{margin: "20px 30px", fontSize: "1.5em", textAlign: "center"}}>
-            <span style={{color: "red", fontWeight: "bold"}}>{meals.length} </span>
-            résultats pour "{MealName}"
+            {MealName && MealName.trim() !== '' && <span style={{color: "red", fontWeight: "bold"}}>{meals.length} </span>}
+            {MealName && MealName.trim() !== '' && ' résultats pour '+MealName}
         </h3>
         <CardsWrapper meals={meals} error={error} isLoading={isLoading}/>
     </div>

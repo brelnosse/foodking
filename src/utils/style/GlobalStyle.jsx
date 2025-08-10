@@ -10,7 +10,9 @@ const StyledGlobalStyle = createGlobalStyle`
   *:focus{
     outline: none
   }
-
+  body{
+    // padding-top: 80px;
+  }
 `;
 function GlobalStyle(){
   return <StyledGlobalStyle/>

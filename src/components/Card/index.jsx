@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import { colors } from "../../utils/style/colors";
 import {Link} from "react-router-dom";
-
+import HintCard from "../HintCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import { db } from "../../firebase";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 const StyledCard = styled.div`
     width: 250px;
     height: 250px;
@@ -36,7 +41,7 @@ const StyledFooter = styled.div`
     margin: 10px 0px;
     width: 100%;
 `;
-const StyledButton = styled(Link)`
+const StyledButton = styled.button`
     cursor: pointer;
     padding: 10px 15px;
     border: none;
@@ -53,18 +58,34 @@ const StyledButton = styled(Link)`
     }
 `;
 function Card({picture, title, id}){
+    const fulltitle = title;
     if(title != null){
         title = title.length <= 15 ? title : title.slice(0,15)+'...'; 
     }
+    const navigate = useNavigate();
+    useEffect(()=>{
+        
+    },[]);
     return (
-        <StyledCard>
-            <StyledImage src={picture} alt="Illustration du plat" />
-            <StyledTitle>{title}</StyledTitle>
-            <hr style={{width: "100%", color: colors.borderColor}}/>
-            <StyledFooter>
-                <StyledButton to={`/viewRecipe/${id}`}>View Recipe</StyledButton>
-            </StyledFooter>
-        </StyledCard>
-    );
-}
+            <StyledCard>
+                <StyledImage 
+                    src={picture} 
+                    alt="Illustration du plat" 
+                />
+                <StyledTitle>{title}</StyledTitle>
+                <hr style={{width: "100%", color: colors.borderColor}}/>
+                <StyledFooter>
+                    <span style={{fontSize: 22, marginRight: 10, cursor: 'pointer'}}><FontAwesomeIcon icon={far.faHeart} color={colors.pink}/></span>
+                    <StyledButton 
+                        onClick={()=>{
+                            navigate('/viewRecipe/'+fulltitle.split(' ').join('-'), {state:{
+                                id: id,
+                                name: fulltitle
+                            }});
+                        }}
+                        >View Recipe</StyledButton>
+                </StyledFooter>
+            </StyledCard>
+    )
+    }
 export default Card;
