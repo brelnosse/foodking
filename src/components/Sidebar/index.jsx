@@ -7,6 +7,7 @@ import { EdgeContext } from '../../utils/context';
 import cooking from '../../assets/cooking.png';
 import { Link } from 'react-router-dom';
 import "../../styles/Sidebar.css";
+import { useLocation } from 'react-router-dom';
 
 const StyledSidebar = styled.div`
     position: fixed;
@@ -36,7 +37,7 @@ const StyledButton = styled.button`
     border-radius: 8px;
 
     ${
-        ({isClose}) => !isClose ? `
+        ({$isClose}) => !$isClose ? `
             border: 3px solid ${colors.borderColor};
             &:hover{
                 background-color: ${colors.fadePrimary};
@@ -75,6 +76,12 @@ const StyledLink = styled(Link)`
     color: ${colors.borderColor};
     background-color: white;
     transition: all 0.3s;
+    ${({$isSelected})=> $isSelected && `
+        background-color: ${colors.primary};
+        color: black;
+        
+        border-color: ${colors.primary};    
+    `}
     &:hover{
         background-color: ${colors.primary};
         color: black;
@@ -83,6 +90,7 @@ const StyledLink = styled(Link)`
 `;
 function Sidebar(){
     const {leftEdge, toggleLeftEdge} = useContext(EdgeContext);
+    const location = useLocation();
 
     return (
         <StyledSidebar style={{width: leftEdge}}>
@@ -92,7 +100,7 @@ function Sidebar(){
                         toggleLeftEdge()
                         }
                     }
-                    isClose = {leftEdge === 50}
+                    $isClose = {leftEdge === 50}
                 >
                     <FontAwesomeIcon icon={fas.faBars}/>
                 </StyledButton>
@@ -102,10 +110,10 @@ function Sidebar(){
                 {leftEdge === 200 && " Miam"}
             </h1>
             <StyledSidebarBody>
-                <StyledLink to={"/"}><FontAwesomeIcon icon={fas.faBowlFood} style={{marginRight: 10}}/>{leftEdge === 200 && "Recipes"}</StyledLink>
-                <StyledLink to={"/search"}><FontAwesomeIcon icon={fas.faMagnifyingGlass} style={{marginRight: 10}}/>{leftEdge === 200 && "Search"}</StyledLink>
-                <StyledLink to={"/contact"}>
-                <FontAwesomeIcon icon={fas.faAddressCard} style={{ marginRight: 10 }} />
+                <StyledLink to={"/"} $isSelected={(location.pathname.endsWith('/') || location.pathname.startsWith('/viewRecipe') && !location.pathname.startsWith('/search'))} style={{justifyContent: (leftEdge !== 200) ? "center" : 'flex-start'}}><FontAwesomeIcon icon={fas.faBowlFood} style={{marginRight: (leftEdge === 200) && 10}}/>{leftEdge === 200 && "Recipes"}</StyledLink>
+                <StyledLink to={"/search"} $isSelected={location.pathname.startsWith('/search')} style={{justifyContent: (leftEdge !== 200) ? "center" : 'flex-start'}}><FontAwesomeIcon icon={fas.faMagnifyingGlass} style={{marginRight: (leftEdge === 200) && 10}}/>{leftEdge === 200 && "Search"}</StyledLink>
+                <StyledLink to={"/contact"} $isSelected={location.pathname.startsWith('/contact')} style={{justifyContent: (leftEdge !== 200) ? "center" : 'flex-start'}}>
+                <FontAwesomeIcon icon={fas.faAddressCard} style={{ marginRight: (leftEdge === 200) && 10 }} />
                 {leftEdge === 200 && "Contact"}
                 </StyledLink>            
             </StyledSidebarBody>

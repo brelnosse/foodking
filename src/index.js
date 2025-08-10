@@ -26,7 +26,7 @@ root.render(
             <Route path='/search/:MealName' element={<Search />}/>
             <Route path='/search' element={<Search />}/>
             <Route path='/contact' element={<Contact />}/>
-            <Route path='/viewRecipe/:mealId' element = {<ViewRecipe />}/>
+            <Route path='/viewRecipe/:name' element = {<ViewRecipe />}/>
             <Route path='*' element = {<PageNotFound />}/>
           </Routes>
           <Sidebar />

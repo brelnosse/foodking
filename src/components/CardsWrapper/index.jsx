@@ -1,7 +1,8 @@
-import { Loader } from "../../utils/style/Loader";
+import  Loader  from "../../utils/style/Loader";
 import Card from "../Card";
 import styled from "styled-components";
 import Error from '../Error';
+import HintCard from "../HintCard";
 const StyledCardsWrapper = styled.div`
     padding: 30px 30px;
     padding-top: 70px;
@@ -14,15 +15,17 @@ const StyledCardsWrapper = styled.div`
 `;
 
 function CardsWrapper({isLoading, error, meals}){
+    const items = [1,1,1,1,1,1,1,1,1]
     return (
         <StyledCardsWrapper>
-            {isLoading ? <Loader/> : (
+            {
                 error ? <Error message={"Erreur lors de la récupération des plats. Vérifier votre connexion internet."} hasImage={true} textColor={"red"}/> : 
                 (
-                    meals.length === 0 ? <Error message={"Aucun résultat trouvé"} hasImage={true}/> :
-                    meals.map((meal) => <Card key={meal.idMeal} picture={meal.strMealThumb} title={meal.strMeal} id={meal.idMeal}/>)
+                    !isLoading && meals.length === 0 ? <Error message={"Aucun résultat trouvé"} hasImage={true}/> :
+                    isLoading ? items.map((el, ind)=> <HintCard key={ind}/>) :
+                    meals.map((meal) => <Card key={meal.idMeal} picture={meal.strMealThumb} title={meal.strMeal} id={meal.idMeal} isLoading={isLoading}/>)
                 )
-            )}
+            }
         </StyledCardsWrapper>
     );
 }
