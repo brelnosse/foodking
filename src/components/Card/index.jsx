@@ -1,10 +1,7 @@
 import styled from "styled-components";
 import { colors } from "../../utils/style/colors";
-import {Link} from "react-router-dom";
-import HintCard from "../HintCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import { db } from "../../firebase";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 const StyledCard = styled.div`
