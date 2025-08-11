@@ -70,7 +70,7 @@ function Card({picture, title, id}){
                     alt="Illustration du plat" 
                 />
                 <StyledTitle>{title}</StyledTitle>
-                <hr style={{width: "100%", color: colors.borderColor}}/>
+                <hr style={{width: "100%", color: 'rgba(216, 216, 216, 0.09)'}}/>
                 <StyledFooter>
                     <span style={{fontSize: 22, marginRight: 10, cursor: 'pointer'}}><FontAwesomeIcon icon={far.faHeart} color={colors.pink}/></span>
                     <StyledButton 
