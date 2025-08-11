@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { colors } from "../../utils/style/colors";
-import HintCategory from "../HintCategory";
 
 const CategoryS = styled.span`
     text-transform: capitalize;

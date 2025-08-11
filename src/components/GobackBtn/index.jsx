@@ -4,10 +4,6 @@ import {faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components';
 import { colors } from "../../utils/style/colors";
 
-const SytledGobackbtnContainer = styled.div`
-    background-color: blue;
-    padding: 20px 30px;
-`;
 const StyledGobackBtn = styled(Link)`
     color: ${colors.black};
     font-size: 1.3em;

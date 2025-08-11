@@ -1,11 +1,9 @@
-import { useParams } from "react-router-dom";
 import { useFetch } from "../../utils/hooks";
 import Error from "../../components/Error";
 import MealCard from "../../components/MealCard";
 import Loader from '../../utils/style/Loader';
 import nodishes from '../../assets/nodishes.png'
 import styled from 'styled-components';
-import { useSearchParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 const Container = styled.div`

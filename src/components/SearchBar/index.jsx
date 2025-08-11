@@ -15,6 +15,9 @@ const SearchBarContainer = styled.div`
     border-radius: 8px;
     box-shadow: 0px 0px 8px 8px rgba(0,0,0,0.01);
     overflow: hidden;
+    @media (max-width: 700px){
+        width: 200px;
+    }
 `;
 
 const StyledSearchBar = styled.input`
@@ -23,7 +26,10 @@ const StyledSearchBar = styled.input`
     padding: 10px;
     padding-left: 20px;
     border: none;
-    background-color: ${colors.white}
+    background-color: ${colors.white};
+    @media (max-width: 700px){
+        width: 158px;
+    }
 `;
 
 const StyledSearchBtn = styled.button`
