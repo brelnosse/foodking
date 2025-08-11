@@ -1,4 +1,3 @@
-import  Loader  from "../../utils/style/Loader";
 import Card from "../Card";
 import styled from "styled-components";
 import Error from '../Error';
