@@ -12,7 +12,7 @@ const StyledHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 20px;
+    padding: 10px;
     z-index: 99;
     padding-left: 30px;
     padding-right: 30px;
