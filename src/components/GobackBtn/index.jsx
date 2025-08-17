@@ -14,6 +14,11 @@ const StyledGobackBtn = styled(Link)`
     &:hover{
         background-color: rgba(0,0,0,0.1);
     }
+    @media (max-width: 700px){
+        font-size: 1.1em;
+        padding: 12px 14px;
+        margin-right: 5px;
+    }  
 `;
 function GobackBtn(){
     const navigate = useNavigate();

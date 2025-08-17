@@ -7,22 +7,28 @@ const StyledButton = styled.button`
     border: none;
     transition: all 0.3s;
     cursor: pointer;
-        border: 2px solid ${colors.primary};
-    ${({$isPrimary}) => $isPrimary ? `
+    border: 2px solid ${colors.primary};
+    ${({$isPrimary, $loading}) => $isPrimary && !$loading ? `
         &:hover{
             background-color: ${colors.primaryDark};
         }
         background-color: ${colors.primary};    
         color: ${colors.white};
-    ` : `
+    ` : $isPrimary && $loading ? `
+        background-color: ${colors.white};    
+    `
+    : `
         background-color: ${colors.white};
         color: ${colors.primary};
     `}
+    @media (max-width: 700px){
+        padding: 10px;
+    } 
 `;
 
-function Button({children, isPrimary}){
+function Button({children, isPrimary, loading}){
     return (
-        <StyledButton $isPrimary={isPrimary}>{children}</StyledButton>
+        <StyledButton $isPrimary={isPrimary} $loading={loading}>{children}</StyledButton>
     );
 }
 
