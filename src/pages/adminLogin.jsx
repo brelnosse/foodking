@@ -48,7 +48,7 @@ export default function AdminLogin(){
         e.preventDefault();
         if(mdp.trim().length !== 0 && email.trim().length !== 0){
             setIsLoading(true)
-            axios.post('http://localhost:8080/api/auth/check', {pwd: mdp, email: email})
+            axios.post('https://foodking-server.onrender.com/api/auth/check', {pwd: mdp, email: email})
             .then((res)=> {
                 setUserToken(res.data.token)
                 setError(null)
