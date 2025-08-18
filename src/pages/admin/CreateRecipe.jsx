@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import AdminHeader from "../../components/AdminHeader";
 import { GoogleGenAI } from "@google/genai";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -21,6 +21,7 @@ import {
     FileUploadInput,
     ImagePreview
 } from "./StyledComponents";
+import { AdminContext } from "../../utils/context/AuthContext";
 
 export default function CreateRecipe(){
     const ingRef = useRef();
@@ -37,7 +38,7 @@ export default function CreateRecipe(){
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [imagePreview, setImagePreview] = useState(null);
-
+    const {token} = useContext(AdminContext)
     // Validation des champs
     const validateField = (field, value) => {
         let error = '';
@@ -229,9 +230,10 @@ export default function CreateRecipe(){
                 formData.append('image', cleanedForm.image);
             }
             
-            const response = await axios.post('http://localhost:8080/api/create', formData, {
+            const response = await axios.post('https://foodking-server.onrender.com/api/create', formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
+                    // 'Content-Type': 'multipart/form-data',
+                    Authorization: 'Bearer '+token
                 }
             });
             
