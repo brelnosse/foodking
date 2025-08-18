@@ -22,6 +22,7 @@ import {
     ImagePreview
 } from "./StyledComponents";
 import { AdminContext } from "../../utils/context/AuthContext";
+import { HOST } from "../../utils/style/colors";
 
 export default function CreateRecipe(){
     const ingRef = useRef();
@@ -230,7 +231,7 @@ export default function CreateRecipe(){
                 formData.append('image', cleanedForm.image);
             }
             
-            const response = await axios.post('https://foodking-server.onrender.com/api/create', formData, {
+            const response = await axios.post(HOST+'/api/create', formData, {
                 headers: {
                     // 'Content-Type': 'multipart/form-data',
                     Authorization: 'Bearer '+token

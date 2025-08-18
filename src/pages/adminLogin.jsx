@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { colors } from "../utils/style/colors";
+import { colors, HOST } from "../utils/style/colors";
 import Button from "../components/Button";
 import { AdminContext } from "../utils/context/AuthContext";
 import Error from "../components/Error";
@@ -48,7 +48,7 @@ export default function AdminLogin(){
         e.preventDefault();
         if(mdp.trim().length !== 0 && email.trim().length !== 0){
             setIsLoading(true)
-            axios.post('https://foodking-server.onrender.com/api/auth/check', {pwd: mdp, email: email})
+            axios.post(HOST+'/api/auth/check', {pwd: mdp, email: email})
             .then((res)=> {
                 setUserToken(res.data.token)
                 setError(null)

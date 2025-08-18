@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "../../utils/style/colors";
+import { colors, HOST } from "../../utils/style/colors";
 
 const CategoryS = styled.span`
     text-transform: capitalize;
@@ -28,7 +28,7 @@ export default function Category({$isFilled, setIsActive, setUrl, idCat, cat}){
             $isFilled = {$isFilled} 
             onClick={()=> {
                 setIsActive({catId: parseInt(idCat), catName: cat})
-                setUrl("https://www.themealdb.com/api/json/v1/1/filter.php?c="+cat);
+                setUrl(HOST+"/api/recipes/categories/"+cat);
             }}>
             {cat}
         </CategoryS>        

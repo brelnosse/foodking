@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
 import { useFetch } from "../../utils/hooks";
 import CardsWrapper from "../../components/CardsWrapper";
+import { HOST } from "../../utils/style/colors";
 
 function Search(){
     const {MealName} = useParams();
-    const {data, error, isLoading} = useFetch("https://www.themealdb.com/api/json/v1/1/search.php?s="+MealName);
-    const meals = data.meals || [];
-
+    const {data, error, isLoading} = useFetch(HOST+"/api/recipes/search/"+MealName);
+    const meals = data.recipes || [];
     return (
     <div className="resultsContainer" style={{paddingTop: 90}}>
         <h3 style={{margin: "20px 30px", fontSize: "1.5em", textAlign: "center"}}>

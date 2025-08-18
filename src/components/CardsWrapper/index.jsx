@@ -22,7 +22,7 @@ function CardsWrapper({isLoading, error, meals}){
                 (
                     !isLoading && meals.length === 0 ? <Error message={"Aucun résultat trouvé"} hasImage={true}/> :
                     isLoading ? items.map((el, ind)=> <HintCard key={ind}/>) :
-                    meals.map((meal) => <Card key={meal.idMeal} picture={meal.strMealThumb} title={meal.strMeal} id={meal.idMeal} isLoading={isLoading}/>)
+                    meals.map((meal, index) => <Card key={index} picture={meal.image_url} title={meal.title} id={meal._id} isLoading={isLoading}/>)
                 )
             }
         </StyledCardsWrapper>
