@@ -5,13 +5,16 @@ import Loader from '../../utils/style/Loader';
 import nodishes from '../../assets/nodishes.png'
 import styled from 'styled-components';
 import { useLocation } from "react-router-dom";
+import { HOST } from "../../utils/style/colors";
 
 const Container = styled.div`
 `;
 function ViewRecipe(){
     const location = useLocation();
-    const {data, error, isLoading} = useFetch('https://www.themealdb.com/api/json/v1/1/lookup.php?i='+ location.state?.id);
-    const meal = data.meals || [];
+    const {data, error, isLoading} = useFetch(HOST+'/api/recipes/'+ location.state?.id);
+    const meal = data.recipe || [];
+
+    console.log(data)
     return (
         <div style={{paddingTop: 90}}>
             <Container>
@@ -19,12 +22,12 @@ function ViewRecipe(){
                     error ? <Error message={"Erreur lors de la récupération des plats. Vérifier votre connexion internet."} hasImage={true} textColor="red"/> : (
                         meal.length === 0 ? <Error message={"Le plat n'a pas été trouvé."} hasImage={true} picture={nodishes} /> : (
                             <MealCard 
-                                title={meal[0].strMeal}
-                                picture = {meal[0].strMealThumb}
-                                mealId={meal[0].idMeal}
-                                instructions={meal[0].strInstructions}
-                                source={meal[0].strSource}
-                                youtubeLink={meal[0].strYoutube}
+                                title={meal.title}
+                                picture = {meal.image_url}
+                                mealId={meal._id}
+                                instructions={meal.description}
+                                source={meal.image_url}
+                                youtubeLink={meal.video_url}
                             />
                         )
                     )

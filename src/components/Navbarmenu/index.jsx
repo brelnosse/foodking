@@ -3,6 +3,7 @@ import { useFetch } from "../../utils/hooks";
 import Error from "../Error";
 import Category from "../Category";
 import HintCategory from "../HintCategory";
+import { HOST } from "../../utils/style/colors";
 const StyledNavbar = styled.div`
     background-color: transparent;
     padding: 10px 30px;
@@ -16,7 +17,7 @@ const StyledNavbar = styled.div`
 `;
 
 function Navbar({ isActive, setIsActive, url, setUrl}) {
-    const {data, error, isLoading} = useFetch("https://www.themealdb.com/api/json/v1/1/categories.php");
+    const {data, error, isLoading} = useFetch(HOST+"/api/recipes/categories");
     const categories = data.categories || [];
     const items = [1,1,1,1,1,1,1,1,1,1,1,1];
 
@@ -30,12 +31,12 @@ function Navbar({ isActive, setIsActive, url, setUrl}) {
                         items.map((el, key)=><HintCategory key={key}/>):
                         categories.map((category, index) =>
                             <Category 
-                                key={category.idCategory} 
-                                $isFilled = {parseInt(isActive.catId)-1 === index} 
-                                catId = {category.idCategory}
+                                key={index} 
+                                $isFilled = {parseInt(isActive.index)-1 === index} 
+                                catId = {category.index}
                                 setIsActive={setIsActive}
                                 setUrl={setUrl}
-                                cat={category.strCategory}
+                                cat={category}
                             />
 )
                     // ): <Error message="Aucune catégorie trouvée"/>

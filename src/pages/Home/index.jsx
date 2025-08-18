@@ -3,14 +3,15 @@ import Navbar from "../../components/Navbarmenu";
 import { useFetch } from "../../utils/hooks";
 import { useState } from "react";
 import CardsWrapper from "../../components/CardsWrapper";
+import { HOST } from "../../utils/style/colors";
 function Home(){
     const [isActive, setIsActive] = useState({
         catId: 1,
-        CatName: 'Beef'
+        CatName: 'main-course'
     });
-    const [url, setUrl] = useState("https://www.themealdb.com/api/json/v1/1/filter.php?c="+isActive.CatName);
+    const [url, setUrl] = useState(HOST+"/api/recipes/");
     const {data, error, isLoading} = useFetch(url);
-    const meals = data.meals || [];
+    const meals = data.recipes || [];
 
     return (
     <div style={{paddingTop: 90}}>
