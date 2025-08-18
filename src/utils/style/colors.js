@@ -15,4 +15,4 @@ export const colors = {
     minPadding: 70
 }
 
-export const HOST = 'https://foodking-server-two.vercel.app';
+export const HOST = 'https://foodking-server.onrender.com';
