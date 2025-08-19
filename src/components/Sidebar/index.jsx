@@ -114,7 +114,7 @@ function Sidebar(){
             <StyledSidebarBody>
                 <StyledLink to={"/"} $isSelected={((location.pathname.endsWith('/') || location.pathname.startsWith('/viewRecipe')) && !location.pathname.startsWith('/search'))} style={{justifyContent: (leftEdge !== 200) ? "center" : 'flex-start'}}><FontAwesomeIcon icon={fas.faBowlFood} style={{marginRight: (leftEdge === 200) && 10}}/>{leftEdge === 200 && "Recipes"}</StyledLink>
                 <StyledLink to={"/search"} $isSelected={location.pathname.startsWith('/search')} style={{justifyContent: (leftEdge !== 200) ? "center" : 'flex-start'}}><FontAwesomeIcon icon={fas.faMagnifyingGlass} style={{marginRight: (leftEdge === 200) && 10}}/>{leftEdge === 200 && "Search"}</StyledLink>
-                {isAdmin && <StyledLink to={"/admin/create"} $isSelected={location.pathname.endsWith('/create')} style={{justifyContent: (leftEdge !== 200) ? "center" : 'flex-start'}}><FontAwesomeIcon icon={fas.faReceipt} style={{marginRight: (leftEdge === 200) && 10}}/>{leftEdge === 200 && "Add a recipe"}</StyledLink>}
+                {(isAdmin || location.state?.isAdmin) && <StyledLink to={"/admin/create"} $isSelected={location.pathname.endsWith('/create')} style={{justifyContent: (leftEdge !== 200) ? "center" : 'flex-start'}}><FontAwesomeIcon icon={fas.faReceipt} style={{marginRight: (leftEdge === 200) && 10}}/>{leftEdge === 200 && "Add a recipe"}</StyledLink>}
                 <StyledLink to={"/contact"} $isSelected={location.pathname.startsWith('/contact')} style={{justifyContent: (leftEdge !== 200) ? "center" : 'flex-start'}}>
                 <FontAwesomeIcon icon={fas.faAddressCard} style={{ marginRight: (leftEdge === 200) && 10 }} />
                 {leftEdge === 200 && "Contact"}
