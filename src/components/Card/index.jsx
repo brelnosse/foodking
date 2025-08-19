@@ -1,9 +1,12 @@
 import styled from "styled-components";
-import { colors } from "../../utils/style/colors";
+import { colors, HOST } from "../../utils/style/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import { useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+
 const StyledCard = styled.div`
     width: 250px;
     height: 250px;
@@ -54,15 +57,21 @@ const StyledButton = styled.button`
         color: ${colors.white};
     }
 `;
-function Card({picture, title, id}){
+function Card({picture, title, id, hasLiked}){
     const fulltitle = title;
     if(title != null){
         title = title.length <= 15 ? title : title.slice(0,15)+'...'; 
     }
+    const [s, setS] = useState(hasLiked);
     const navigate = useNavigate();
-    useEffect(()=>{
-        
-    },[]);
+    const like = (cid)=>{
+        axios.get(HOST+'/api/recipes/like/'+cid)
+        .then(()=>{
+            setS(prevState => !prevState)
+        })
+        .catch(err=> console.log(err))
+    }
+
     return (
             <StyledCard>
                 <StyledImage 
@@ -72,7 +81,11 @@ function Card({picture, title, id}){
                 <StyledTitle>{title}</StyledTitle>
                 <hr style={{width: "100%", color: 'rgba(216, 216, 216, 0.09)'}}/>
                 <StyledFooter>
-                    <span style={{fontSize: 22, marginRight: 10, cursor: 'pointer'}}><FontAwesomeIcon icon={far.faHeart} color={colors.pink}/></span>
+                    <span 
+                        style={{fontSize: 22, marginRight: 10, cursor: 'pointer'}}
+                        onClick={()=>{
+                            like(id)
+                        }}><FontAwesomeIcon icon={s ? fas.faHeart : far.faHeart} color={colors.pink}/></span>
                     <StyledButton 
                         onClick={()=>{
                             navigate('/viewRecipe/'+fulltitle.split(' ').join('-'), {state:{
