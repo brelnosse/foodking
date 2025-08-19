@@ -15,5 +15,4 @@ export const colors = {
     minPadding: 70
 }
 
-// export const HOST = 'https://foodking-server.onrender.com';
-export const HOST = 'http://localhost:8080';
+export const HOST = 'https://foodking-server.onrender.com';
