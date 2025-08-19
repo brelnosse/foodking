@@ -29,15 +29,17 @@ function Navbar({ isActive, setIsActive, url, setUrl}) {
                     // !isLoading && categories.length > 0 ?
                     isLoading ?
                         items.map((el, key)=><HintCategory key={key}/>):
-                        categories.map((category, index) =>
-                            <Category 
+                        categories.map((category, index) =>{
+                            console.log(isActive, index)
+                            return <Category 
                                 key={index} 
-                                $isFilled = {parseInt(isActive.index)-1 === index} 
-                                catId = {category.index}
+                                $isFilled = {isActive.catId === index} 
+                                idCat={index}
                                 setIsActive={setIsActive}
                                 setUrl={setUrl}
                                 cat={category}
                             />
+                        }
 )
                     // ): <Error message="Aucune catégorie trouvée"/>
                 ): <Error message="Une erreur est survenue lors de la récupération des données. Vérifier votre connexion internet." hasImage={false} textColor={"red"}/>
