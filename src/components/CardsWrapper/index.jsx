@@ -44,12 +44,9 @@ function CardsWrapper({isLoading, error, meals}){
                             isLoading={isLoading} 
                             hasLiked = {
                                 (()=>{
-                                    let v = false;
                                     for(let i = 0; i < likesObj.length-1; i++){
                                         if(likesObj[i].id === meal._id){
                                             if(likesObj[i].likes.includes(likesObj[likesObj.length-1])){
-                                                // console.log(likesObj[i].likes, likesObj[likesObj.length-1])
-                                                // console.log(v)
                                                 return true
                                             }
                                         }

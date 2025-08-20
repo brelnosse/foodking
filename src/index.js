@@ -15,6 +15,7 @@ import CreateRecipe from './pages/admin/CreateRecipe';
 import AdminLogin from './pages/adminLogin';
 import { AdminContextProvider } from './utils/context/AuthContext';
 import ProtectedRoute from './pages/ProtectedRoute';
+import Favorites from './pages/Favorites';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -36,6 +37,7 @@ root.render(
               <Route path='/admin/create' element={<CreateRecipe />}/>
             </Route>
             <Route path='/admin' element={<AdminLogin />} />
+            <Route path='/favorites' element={<Favorites />} />
             <Route path='*' element = {<PageNotFound />}/>
           </Routes>
           <Sidebar />

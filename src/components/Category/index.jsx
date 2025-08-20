@@ -28,7 +28,7 @@ export default function Category({$isFilled, setIsActive, setUrl, idCat, cat}){
             $isFilled = {$isFilled} 
             onClick={()=> {
                 setIsActive({catId: parseInt(idCat), catName: cat})
-                setUrl(HOST+"/api/recipes/categories/"+cat);
+                setUrl(cat === 'all' ? HOST+"/api/recipes" : HOST+"/api/recipes/categories/"+cat);
             }}>
             {cat}
         </CategoryS>        

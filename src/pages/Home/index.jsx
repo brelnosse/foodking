@@ -6,7 +6,7 @@ import CardsWrapper from "../../components/CardsWrapper";
 import { HOST } from "../../utils/style/colors";
 function Home(){
     const [isActive, setIsActive] = useState({
-        catId: 1,
+        catId: 0,
         CatName: 'main-course'
     });
     const [url, setUrl] = useState(HOST+"/api/recipes/");

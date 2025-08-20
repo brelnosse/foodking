@@ -20,9 +20,17 @@ function Navbar({ isActive, setIsActive, url, setUrl}) {
     const {data, error, isLoading} = useFetch(HOST+"/api/recipes/categories");
     const categories = data.categories || [];
     const items = [1,1,1,1,1,1,1,1,1,1,1,1];
-
+    
     return (
         <StyledNavbar>
+            <Category 
+                key={0} 
+                $isFilled = {isActive.catId === 0} 
+                idCat={0}
+                setIsActive={setIsActive}
+                setUrl={setUrl}
+                cat={'all'}
+            />            
             {
                 !error ?
                 ( 
@@ -30,11 +38,10 @@ function Navbar({ isActive, setIsActive, url, setUrl}) {
                     isLoading ?
                         items.map((el, key)=><HintCategory key={key}/>):
                         categories.map((category, index) =>{
-                            console.log(isActive, index)
                             return <Category 
-                                key={index} 
-                                $isFilled = {isActive.catId === index} 
-                                idCat={index}
+                                key={index+1} 
+                                $isFilled = {isActive.catId === index+1} 
+                                idCat={index+1}
                                 setIsActive={setIsActive}
                                 setUrl={setUrl}
                                 cat={category}
