@@ -3,8 +3,9 @@ import styled from "styled-components";
 import Error from '../Error';
 import HintCard from "../HintCard";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { HOST } from "../../utils/style/colors";
+import { RecipeContext } from "../../utils/context/RecipeContext";
 const StyledCardsWrapper = styled.div`
     padding: 30px 30px;
     padding-top: 70px;
@@ -18,15 +19,7 @@ const StyledCardsWrapper = styled.div`
 
 function CardsWrapper({isLoading, error, meals}){
     const items = [1,1,1,1,1,1,1,1,1]
-    const [likesObj, setLikesObj] = useState([]);
-
-    useEffect(()=>{
-        axios.get(HOST+'/api/recipes/likes/all')
-        .then((res)=>{
-            setLikesObj(res.data.data)
-        })
-        .catch((error) => console.log(error))
-    }, []);
+    const {likesObj} = useContext(RecipeContext)
 
     return (
         <StyledCardsWrapper>

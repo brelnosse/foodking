@@ -2,10 +2,11 @@ import styled from "styled-components";
 import { colors, HOST } from "../../utils/style/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import { RecipeContext } from "../../utils/context/RecipeContext";
 
 const StyledCard = styled.div`
     width: 250px;
@@ -22,6 +23,7 @@ const StyledCard = styled.div`
         transform: translateY(-5px);
     }
 `;
+
 const StyledImage = styled.img`
     height: 190px;
     width: 190px;
@@ -30,10 +32,12 @@ const StyledImage = styled.img`
     margin-top: -70px;
     box-shadow: 0px 10px 12px 12px rgba(0,0,0,0.03);
 `;
+
 const StyledTitle = styled.span`
     padding: 20px 0px;
     flex: 1;
 `;
+
 const StyledFooter = styled.div`
     display: flex;
     align-items: center;
@@ -41,6 +45,7 @@ const StyledFooter = styled.div`
     margin: 10px 0px;
     width: 100%;
 `;
+
 const StyledButton = styled.button`
     cursor: pointer;
     padding: 10px 15px;
@@ -57,45 +62,58 @@ const StyledButton = styled.button`
         color: ${colors.white};
     }
 `;
+
 function Card({picture, title, id, hasLiked}){
     const fulltitle = title;
+    let displayTitle = title;
+    
     if(title != null){
-        title = title.length <= 15 ? title : title.slice(0,15)+'...'; 
+        displayTitle = title.length <= 15 ? title : title.slice(0,15)+'...'; 
     }
-    const [s, setS] = useState(hasLiked);
+    
     const navigate = useNavigate();
-    const like = (cid)=>{
-        axios.get(HOST+'/api/recipes/like/'+cid)
-        .then(()=>{
-            setS(prevState => !prevState)
-        })
-        .catch(err=> console.log(err))
-    }
-
+    const [isLiked, setIsLiked] = useState(hasLiked);
+    const {like} = useContext(RecipeContext);
+    
+    const handleLike = () => {
+        like(id, setIsLiked);
+    };
+    
+    const handleViewRecipe = () => {
+        if (fulltitle) {
+            navigate('/viewRecipe/'+fulltitle.split(' ').join('-'), {
+                state: {
+                    id: id,
+                    name: fulltitle
+                }
+            });
+        }
+    };
+        
     return (
-            <StyledCard>
-                <StyledImage 
-                    src={picture} 
-                    alt="Illustration du plat" 
-                />
-                <StyledTitle>{title}</StyledTitle>
-                <hr style={{width: "100%", color: 'rgba(216, 216, 216, 0.09)'}}/>
-                <StyledFooter>
-                    <span 
-                        style={{fontSize: 22, marginRight: 10, cursor: 'pointer'}}
-                        onClick={()=>{
-                            like(id)
-                        }}><FontAwesomeIcon icon={s ? fas.faHeart : far.faHeart} color={colors.pink}/></span>
-                    <StyledButton 
-                        onClick={()=>{
-                            navigate('/viewRecipe/'+fulltitle.split(' ').join('-'), {state:{
-                                id: id,
-                                name: fulltitle
-                            }});
-                        }}
-                        >View Recipe</StyledButton>
-                </StyledFooter>
-            </StyledCard>
-    )
-    }
+        <StyledCard>
+            <StyledImage 
+                src={picture} 
+                alt="Illustration du plat"
+            />
+            <StyledTitle>{displayTitle}</StyledTitle>
+            <hr style={{width: "100%", color: 'rgba(216, 216, 216, 0.09)'}}/>
+            <StyledFooter>
+                <span 
+                    style={{fontSize: 22, marginRight: 10, cursor: 'pointer'}}
+                    onClick={handleLike}
+                >
+                    <FontAwesomeIcon 
+                        icon={isLiked ? fas.faHeart : far.faHeart} 
+                        color={colors.pink}
+                    />
+                </span>
+                <StyledButton onClick={handleViewRecipe}>
+                    View Recipe
+                </StyledButton>
+            </StyledFooter>
+        </StyledCard>
+    );
+}
+
 export default Card;
