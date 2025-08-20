@@ -25,7 +25,7 @@ root.render(
       <AdminContextProvider>
       <RecipeContextProvider>
         <GlobalContainer>
-          <Router>  
+          <Router>
             <Header />
             <Routes>
               <Route path='/' element={<Home />}/>
