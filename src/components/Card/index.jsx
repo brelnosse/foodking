@@ -93,7 +93,7 @@ function Card({picture, title, id, hasLiked}){
     return (
         <StyledCard>
             <StyledImage 
-                src={picture} 
+                src={picture ? picture : require('../../assets/cooking.png')} 
                 alt="Illustration du plat"
             />
             <StyledTitle>{displayTitle}</StyledTitle>

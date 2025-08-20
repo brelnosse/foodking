@@ -23,7 +23,7 @@ function ViewRecipe(){
                         meal.length === 0 ? <Error message={"Le plat n'a pas été trouvé."} hasImage={true} picture={nodishes} /> : (
                             <MealCard 
                                 title={meal.title}
-                                picture = {meal.image_url}
+                                picture = {meal.image_url ? meal.image_url : require('../../assets/cooking.png')}
                                 mealId={meal._id}
                                 instructions={meal.description}
                                 source={meal.image_url}

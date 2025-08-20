@@ -40,6 +40,7 @@ export default function CreateRecipe(){
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [imagePreview, setImagePreview] = useState(null);
     const {token} = useContext(AdminContext)
+    const [generalError, setGeneralError] = useState(null);
     // Validation des champs
     const validateField = (field, value) => {
         let error = '';
@@ -101,18 +102,19 @@ export default function CreateRecipe(){
 
     // Validation de l'image
     const validateImage = (file) => {
-        if (!file) return 'Une image est requise';
-        
+        // Image is optional. If not provided, it's valid.
+        if (!file) return '';
+
         const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
         if (!allowedTypes.includes(file.type)) {
             return 'Format d\'image non supporté. Utilisez JPG, JPEG ou PNG';
         }
-        
+
         const maxSize = 5 * 1024 * 1024; // 5MB
         if (file.size > maxSize) {
             return 'La taille de l\'image ne doit pas dépasser 5MB';
         }
-        
+
         return '';
     };
 
@@ -193,7 +195,9 @@ export default function CreateRecipe(){
         newErrors.category = validateField('category', form.category);
         newErrors.video_url = validateField('video_url', form.video_url);
         newErrors.ingredients = validateIngredients(form.ingredients);
-        newErrors.image = validateImage(form.image);
+    // image is optional
+    const imageErr = validateImage(form.image);
+    if (imageErr) newErrors.image = imageErr;
         
         // Supprimer les erreurs vides
         Object.keys(newErrors).forEach(key => {
@@ -206,12 +210,13 @@ export default function CreateRecipe(){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+        setGeneralError(null);
+
         if (!validateForm()) {
             console.log('Formulaire invalide:', errors);
             return;
         }
-        
+
         setIsSubmitting(true);
         
         try {
@@ -231,10 +236,18 @@ export default function CreateRecipe(){
                 formData.append('image', cleanedForm.image);
             }
             
+            // Ensure we don't send 'Bearer null'. Try context token, fallback to localStorage.
+            const localToken = token || localStorage.getItem('token');
+            if (!localToken) {
+                setGeneralError('Session invalide ou expirée. Veuillez vous reconnecter.');
+                setIsSubmitting(false);
+                return;
+            }
+
             const response = await axios.post(HOST+'/api/create', formData, {
                 headers: {
                     // 'Content-Type': 'multipart/form-data',
-                    Authorization: 'Bearer '+token
+                    ...(localToken ? { Authorization: 'Bearer '+localToken } : {})
                 }
             });
             
@@ -257,12 +270,24 @@ export default function CreateRecipe(){
             
         } catch (error) {
             console.error('Error creating recipe:', error.response?.data || error.message);
-            
+
             // Gérer les erreurs du serveur
-            if (error.response?.data?.errors) {
-                setErrors(error.response.data.errors);
+            const serverData = error.response?.data;
+            if (serverData) {
+                // If backend returns structured validation errors
+                if (serverData.errors) {
+                    setErrors(serverData.errors);
+                }
+                // If backend returns a general message
+                if (serverData.message) {
+                    setGeneralError(serverData.message);
+                }
+                // If backend returns other data, try to display a reasonable message
+                if (!serverData.errors && !serverData.message) {
+                    setGeneralError(JSON.stringify(serverData));
+                }
             } else {
-                alert('Erreur lors de la création de la recette. Veuillez réessayer.');
+                setGeneralError('Erreur lors de la création de la recette. Veuillez réessayer.');
             }
         } finally {
             setIsSubmitting(false);
@@ -387,13 +412,13 @@ export default function CreateRecipe(){
 
                 <InputContainer>
                     <StyledLabel>
-                        Image: *
+                        Image (optionnelle):
                         <FileUploadContainer>
                             <FileUploadLabel style={{
                                 borderColor: errors.image ? '#ff4757' : '#ddd'
                             }}>
                                 <FontAwesomeIcon icon={fas.faCloudUploadAlt} />
-                                Click to select an image or drag and drop
+                                Click to select an image or drag and drop (optionnel)
                                 <small>PNG, JPG, JPEG up to 5MB</small>
                                 <FileUploadInput
                                     type="file"
@@ -436,10 +461,14 @@ export default function CreateRecipe(){
                     </StyledLabel>
                 </InputContainer>
 
+                {generalError && (
+                    <div style={{color: '#ff4757', marginBottom: 10}}>{generalError}</div>
+                )}
+
                 <Button 
                     isPrimary={true} 
                     type="submit" 
-                    disabled={isSubmitting || Object.keys(errors).length > 0}
+                    // disabled={isSubmitting || Object.keys(errors).length > 0}
                 >
                     <FontAwesomeIcon style={{marginRight: 5}} icon={isSubmitting ? fas.faSpinner : fas.faPlusCircle} />
                     {isSubmitting ? 'Creating...' : 'Create the recipe'}

@@ -175,8 +175,8 @@ function MealCard({title, picture, mealId, instructions, source, youtubeLink}){
     return (
         <StyledContainer>
             <MealBanner >
-                <StyledBannerImg src={picture} alt="Logo du plat" /> 
                 <StyledTitlte style={{textAlign: 'center', fontWeight: 100}}>{title}</StyledTitlte>
+                <StyledBannerImg src={picture} alt="Logo du plat" /> 
             </MealBanner>
             <StyledCookSide>
                 <StyledTitlte>Ingredient(s)</StyledTitlte>
