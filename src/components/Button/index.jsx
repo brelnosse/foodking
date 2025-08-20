@@ -26,9 +26,9 @@ const StyledButton = styled.button`
     } 
 `;
 
-function Button({children, isPrimary, loading}){
+function Button({children, isPrimary, loading, ...props}){
     return (
-        <StyledButton $isPrimary={isPrimary} $loading={loading}>{children}</StyledButton>
+        <StyledButton $isPrimary={isPrimary} $loading={loading} {...props}>{children}</StyledButton>
     );
 }
 

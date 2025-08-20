@@ -1,10 +1,11 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import Actions from '../Actions';
 import SearchBar from '../SearchBar';
 import styled from 'styled-components';
 import { EdgeContext } from '../../utils/context';
 import GobackBtn from '../GobackBtn';
 import { useLocation } from 'react-router-dom';
+import Modal from '../Modal';
 
 const StyledHeader = styled.div`
     background-color: transparent;
@@ -26,6 +27,7 @@ const StyledHeader = styled.div`
 function Header(){
     const {leftEdge} = useContext(EdgeContext);
     const location = useLocation();
+    const [isVisible, setIsVisible] = useState(false);
     const ref = useRef();
     function setWith(){
         if(ref.current){
@@ -42,7 +44,7 @@ function Header(){
         <StyledHeader ref={ref}>
             {!location.pathname.endsWith('/') && <GobackBtn />}
             {(location.pathname.startsWith('/search') || location.pathname.endsWith('/'))  && <SearchBar />}
-            <Actions />
+            <Actions/>
         </StyledHeader>
     );
 }
