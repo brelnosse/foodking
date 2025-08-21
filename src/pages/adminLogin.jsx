@@ -52,9 +52,7 @@ export default function AdminLogin(){
             .then((res)=> {
                 setUserToken(res.data.token)
                 setError(null)
-                navigate('/admin/create', {state:{
-                    isAdmin: true
-                }} );
+                window.location = '/admin/create'
             })
             .catch((error)=> {
                 setError(error.message)
